@@ -15,7 +15,7 @@ def lex(filecontents):
 	filecontents = list(filecontents)
 	for char in filecontents:
 		tok += char
-		if " " in tok or tok == "<EOF>":
+		if " " in tok or tok == "<EOF>" or tok == "\n":
 			tok = ""
 		if tok == "say" or tok == "Say":
 			tok = ""
@@ -32,10 +32,13 @@ def lex(filecontents):
 			inputs += char
 		if state == False:
 			say = say[1:]
-			if say != '':
+			inputs = inputs[1:]
+			if not say == '':
 				print(say)
-			if inputs != '':
-				input(inputs[1:])
+				say = ""
+				said = False
+			if not inputs == '':
+				input(inputs)
 				inputs = ""
 				inputted = False
 
