@@ -17,10 +17,13 @@ def lex(filecontents):
 		tok += char
 		if " " in tok or tok == "<EOF>" or tok == "\n":
 			tok = ""
-		if tok == "say" or tok == "Say":
+		if tok == "say" or tok == "Say" or tok == "tell" or tok == "Tell" and state == False:
 			tok = ""
 			said = True
-		if tok == "input" or tok == "Input" or tok == "ask" or tok == "Ask" or tok == "get" or tok == "Get":
+		if tok == "input" or tok == "Input" or tok == "ask" or tok == "Ask" and state == False:
+			tok = ""
+			inputted = True
+		if tok == "input" or tok == "Input" or tok == "ask" or tok == "Ask" and state == False:
 			tok = ""
 			inputted = True
 		if '"' in tok:
@@ -43,7 +46,6 @@ def lex(filecontents):
 				inputted = False
 
 def run():
-	data = open_file(argv[1])
-	lex(data)
+	lex(open_file(argv[1]))
 
 run()
